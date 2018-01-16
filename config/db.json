@@ -1,0 +1,25 @@
+{
+  "getNewsList": [
+    {
+      "id": 1,
+      "name": "新闻标题一定要长，很长很长很长的标题很长很长很长",
+      "url": "https://www.baidu.com"
+    },
+    {
+      "id": 2,
+      "name": "新闻2",
+      "url": "https://www.baidu.com"
+    },
+    {
+      "id": 3,
+      "name": "新闻3",
+      "url": "https://www.baidu.com"
+    },
+    {
+      "id": 4
+    },
+    {
+      "id": 5
+    }
+  ]
+}
