@@ -13,8 +13,8 @@
   <h2>title</h2>
   <ul class="slide-pages">
     <li @click="goto(prev)">&lt;</li>
-    <li v-for="(item,index) in sliders" @click="goto(index)">
-      <a :class="{'on':index === current}">{{ index +1 }}</a>
+    <li :key="index" v-for="(item,index) in sliders" @click="goto(index)">
+      <a  :class="{'on':index === current}">{{ index +1 }}</a>
     </li>
     <li @click="goto(next)">&gt;</li>
   </ul>
@@ -26,7 +26,9 @@ export default {
   props: {
     sliders: {
       type: Array,
-      default: []
+      default () {
+        return []
+      }
     },
     inv: {
       type: Number,
