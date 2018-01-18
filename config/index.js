@@ -14,6 +14,14 @@ server.use(middlewares)
 // server.use(jsonServer.rewriter({
 //   '/api/*': '/$1'
 // }))
+// 处理post请求
+server.use(jsonServer.bodyParser)
+server.use((req, res, next) => {
+  if (req.method === 'POST') {
+    req.body.createAt = Date.now()
+  }
+  next()
+})
 server.use('/api',router)
 server.listen(8081, () => {
   console.log('JSON Server is running')

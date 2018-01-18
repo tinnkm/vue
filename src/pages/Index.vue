@@ -30,9 +30,11 @@
         <div class="index-board-item-inner">
           <h2>{{ board.title }}</h2>
           <p>{{ board.description }}</p>
-          <div class="index-board-button">
-            <a href="#" class="button">立即购买</a>
-          </div>
+          <router-link :to="{ path: '/detail/'+board.toKey}">
+            <div class="index-board-button">
+              立即购买
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -252,17 +254,25 @@ export default {
 
 .index-board-button {
   margin-top: 20px;
+  background: #4fc08d;
+  color: #fff;
+  height: 30px;
+  width: 100px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
 }
 
 .lastest-news {
-  min-height: 512px;
+  min-height: 467px;
 }
 
 .hot-tag {
   background: red;
   color: #fff;
 }
-
 .new-item {
   display: inline-block;
   width: 230px;
