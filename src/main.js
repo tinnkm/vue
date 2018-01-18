@@ -5,6 +5,7 @@ import layout from './components/Layout.vue'
 import router from './router'
 import iView from 'iview'
 import VueResource from 'vue-resource'
+import Store from '@/store/index'
 import 'iview/dist/styles/iview.css'
 Vue.use(iView)
 Vue.use(VueResource)
@@ -14,6 +15,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store: Store,
   template: '<layout/>',
   components: { layout }
 })

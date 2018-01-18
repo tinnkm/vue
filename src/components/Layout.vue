@@ -1,25 +1,34 @@
 <template>
-<div class="layout">
+<div class="layout" @click="componentEvent">
   <Layout>
     <Header>
-      <Menu mode="horizontal" theme="dark" active-name="1">
-        <div class="layout-logo"></div>
+      <Menu @on-select="show" mode="horizontal" theme="dark" active-name="1">
+        <router-link :to="{ path: '/'}">
+          <div class="layout-logo">
+          </div>
+        </router-link>
         <div class="layout-nav">
-          <menu-item name="1">
+          <menu-item v-if="username !== ''" name="用户名">
+          {{ username }}
+          </menu-item>
+          <menu-item v-if="username === ''" name="登录" >
           <Icon type="ios-navigate"></Icon>
-          Item 1
+          登录
           </menu-item>
-          <menu-item name="2">
+          <menu-item v-else name="注销">
+            注销
+          </menu-item>
+          <menu-item name="注册">
           <Icon type="ios-keypad"></Icon>
-          Item 2
+          注册
           </menu-item>
-          <menu-item name="3">
+          <menu-item name="关于">
           <Icon type="ios-analytics"></Icon>
-          Item 3
+          关于
           </menu-item>
-          <menu-item name="4">
+          <menu-item name="联系我们">
           <Icon type="ios-paper"></Icon>
-          Item 4
+          联系我们
           </menu-item>
         </div>
       </Menu>
@@ -29,24 +38,67 @@
         <router-view/>
       </keep-alive>
     </Content>
-    <Footer>this is footer</Footer>
+    <Footer class="footer">this is footer</Footer>
   </Layout>
+  <my-dialog :isShow="showDialog" @close="handlerClose" :title="dialogTitle">
+    <p :is="currentComponent" @loginSuccess="loginCallBack">
+    </p>
+  </my-dialog>
 </div>
 </template>
 
 <script>
-// import {  } from 'vue-strap'
+import myDialog from '@/components/dialog.vue'
+import LoginForm from '@/components/LoginForm.vue'
+import { eventBus } from '@/eventBus'
 export default {
+  components: {
+    myDialog,
+    LoginForm
+  },
   name: 'Leyout',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      activeIndex: '1'
+      activeIndex: '1',
+      showDialog: false,
+      dialogTitle: '',
+      currentComponent: '',
+      username: ''
     }
   },
   methods: {
     handleSelect (key, keypath) {
       console.log(key, keypath)
+    },
+    show (name) {
+      switch (name) {
+        case '登录':
+          this.currentComponent = LoginForm
+          break
+        case '注销':
+          this.logout()
+          break
+        default:
+          this.currentComponent = ''
+      }
+      this.dialogTitle = name
+      if (name !== '注销' && name !== '用户名') {
+        this.showDialog = true
+      }
+    },
+    handlerClose () {
+      this.showDialog = false
+    },
+    loginCallBack (name) {
+      this.username = name
+      this.showDialog = false
+    },
+    logout () {
+      this.username = ''
+    },
+    componentEvent () {
+      eventBus.$emit('drop-selection')
     }
   }
 }
@@ -54,6 +106,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.footer {
+  background: #b4babf;
+  text-align: center;
+  position: relative;
+}
 .layout{
     border: 1px solid #d7dde4;
     background: #f5f7f9;
