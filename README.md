@@ -60,7 +60,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
   this is a data formatter plugins
   <pre>
     <code>npm install qs</code>
-  <pre>
+  </pre>
 ### step2: change the contentType
   set the contentType 'application/x-www-form-urlencoded; charset=UTF-8'
 ### step3: formatter data
