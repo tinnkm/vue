@@ -54,3 +54,24 @@ export default new Router({
 })
 </code></pre>
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## when can't get the post params
+### step1: install qs
+  this is a data formatter plugins
+### step2: change the contentType
+  set the contentType 'application/x-www-form-urlencoded; charset=UTF-8'
+### step3: formatter data
+  qs.stringify()
+<pre>
+<code>
+import Qs from 'qs'
+// 由于vue-resouce框架限制需修改contentType和格式化参数后端（springboot）才能接收到
+this.$http.post('http://192.168.130.89:8080/login', Qs.stringify({username: 'oaadmin', password: '123456'}),
+      {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).then(
+      (res) => {
+        let data = res.body
+        console.log(data)
+      }
+    )
+</code>
+</pre>
